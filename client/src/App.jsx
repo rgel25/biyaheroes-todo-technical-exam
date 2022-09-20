@@ -7,19 +7,25 @@ import axios from "axios";
 function App() {
   // Initiate todos as state
   const [todos, setTodos] = React.useState([]);
+  // Initiate loading state
+  const [loading, setLoading] = React.useState(false);
   // Fetch todos from DB
   React.useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       const { data } = await axios.get("/api/todos");
       setTodos(data);
+      setLoading(false);
     };
     fetchData();
   }, []);
 
   const updateTodos = async () => {
+    setLoading(true);
     // Update todos from DB
     const { data } = await axios.get("/api/todos");
     setTodos(data);
+    setLoading(false);
   };
 
   return (
@@ -35,7 +41,15 @@ function App() {
           </div>
           <div className="col-12 col-md-6">
             <h2>Your Todo List</h2>
-            <List todos={todos} updateTodos={updateTodos} />
+            {loading ? (
+              <div className="container w-100 text-center mt-5">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : (
+              <List todos={todos} updateTodos={updateTodos} />
+            )}
           </div>
         </div>
       </div>
