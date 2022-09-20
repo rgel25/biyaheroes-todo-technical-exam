@@ -1,0 +1,22 @@
+{
+  "name": "biyaheroes-todo-technical-exam",
+  "version": "1.0.0",
+  "description": "biyaheroes todo app for technical exam",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server",
+    "server": "nodemon server/server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Argel Miralles",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.1"
+  },
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
+}
