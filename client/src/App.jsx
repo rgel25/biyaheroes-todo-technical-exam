@@ -5,7 +5,9 @@ import List from "./components/List";
 import axios from "axios";
 
 function App() {
+  // Initiate todos as state
   const [todos, setTodos] = React.useState([]);
+  // Fetch todos from DB
   React.useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get("/api/todos");
@@ -14,21 +16,10 @@ function App() {
     fetchData();
   }, []);
 
-  const addTodoHandler = (formData) => {
-    setTodos((prevEntries) => [...prevEntries, formData]);
-  };
-
-  const editTodoHandler = (id, entry) => {
-    setTodos((prevEntries) => {
-      const index = prevEntries.findIndex((entry) => entry._id === id);
-      const cloneTodos = [...prevEntries];
-      cloneTodos[index] = entry;
-      return cloneTodos;
-    });
-  };
-
-  const deleteTodoHandler = (id) => {
-    setTodos((prevEntries) => prevEntries.filter((entry) => entry._id !== id));
+  const updateTodos = async () => {
+    // Update todos from DB
+    const { data } = await axios.get("/api/todos");
+    setTodos(data);
   };
 
   return (
@@ -38,17 +29,13 @@ function App() {
           <div className="col-12 col-md-6">
             <h2>Add Todo</h2>
             <Form
-              addTodoHandler={addTodoHandler}
+              updateTodos={updateTodos}
               todosTitle={todos.map((todo) => todo.todoTitle)}
             />
           </div>
           <div className="col-12 col-md-6">
             <h2>Your Todo List</h2>
-            <List
-              todos={todos}
-              editTodoHandler={editTodoHandler}
-              deleteTodoHandler={deleteTodoHandler}
-            />
+            <List todos={todos} updateTodos={updateTodos} />
           </div>
         </div>
       </div>

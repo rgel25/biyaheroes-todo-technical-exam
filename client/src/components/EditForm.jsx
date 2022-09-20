@@ -21,7 +21,7 @@ const initializeValidation = () => {
   });
 };
 
-export default function EditForm({ todo, editTodoHandler, todos }) {
+export default function EditForm({ todo, updateTodos, todos }) {
   // FORM VALIDATION
   React.useEffect(() => {
     initializeValidation();
@@ -60,17 +60,19 @@ export default function EditForm({ todo, editTodoHandler, todos }) {
       setError("Todo title already exists!");
       return;
     }
-    // PUT
+    // SEND HTTP REQUEST
     await axios.put(`/api/todos/${id}/edit`, editFormData);
-    // SET STATE IN APP
-    // CLEANUP
-    editTodoHandler(id, editFormData);
+    // REFLECT CHANGES ON FRONTEND
+    updateTodos();
+    // CLEAR FORM VALIDATION
     const forms = document.querySelectorAll(".needs-validation");
     Array.from(forms).forEach((form) => {
       form.classList.remove("was-validated");
     });
     initializeValidation();
+    setError("");
 
+    // CLOSE EDIT MODAL
     const modal = document.getElementById(`modal-${id}`);
     modal.classList.remove("show");
     document

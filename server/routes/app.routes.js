@@ -1,14 +1,19 @@
+// Initiate route
 const express = require("express");
 const router = express.Router();
-// const Todo = require("../models/data.model");
+// Initiate Todos controller
 const todos = require("../controllers/todosController");
 
+// GET Todos - route (/api/todos/) - List of Todos
 router.get("/", todos.index);
 
+// POST Todos - route (/api/todos/) - Add a todo
 router.post("/", todos.create);
 
+// PUT Todos - route (/api/todos/:id/edit) - Edit a todo
 router.put("/:id/edit", todos.update);
 
+// DELEETE Todos - route (/api/todos/:id) - Delete a todo
 router.delete("/:id", todos.destroy);
 
 module.exports = router;

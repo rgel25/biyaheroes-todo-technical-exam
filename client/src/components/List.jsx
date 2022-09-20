@@ -2,16 +2,18 @@ import React from "react";
 import EditForm from "./EditForm";
 import axios from "axios";
 
-export default function List({ todos, editTodoHandler, deleteTodoHandler }) {
+export default function List({ todos, updateTodos }) {
+  // DELETE HANDLER FOR TODO DELTION,
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this todo?")) {
-      // DELETE QUERY
+      // DELETE API ENDPOINT REQUEST
       axios.delete(`/api/todos/${id}`);
-      // DELETE FRONT END
-      deleteTodoHandler(id);
+      // DELETE TODO IN FRONT END
+      updateTodos();
     }
   };
 
+  // Custom date formatter
   const dateFormatter = (date) => {
     const year = date.toString().slice(0, 4);
     const month = date.toString().slice(4, 6);
@@ -94,7 +96,7 @@ export default function List({ todos, editTodoHandler, deleteTodoHandler }) {
 
                   <EditForm
                     todo={todo}
-                    editTodoHandler={editTodoHandler}
+                    updateTodos={updateTodos}
                     todos={todos}
                   />
                 </div>

@@ -23,6 +23,7 @@ const initializeValidation = () => {
   });
 };
 
+// FORMAT DATE AND TIME TIMESTAMP FOR DB CLIENT REQUIREMENTS
 const todoDatetimestampFormatter = () => {
   const date = new Date().toISOString().split("T")[0].replace(/[-]/g, "");
   const time = new Date().toLocaleTimeString("da-Danish").replace(/[.]/g, "");
@@ -37,8 +38,8 @@ const initialFormData = {
   todoDatetimestamp: "",
 };
 
-export default function Form({ addTodoHandler, todosTitle }) {
-  // FORM VALIDATION
+export default function Form({ updateTodos, todosTitle }) {
+  // BOOTSTRAP FORM VALIDATION
   React.useEffect(() => {
     initializeValidation();
   }, []);
@@ -80,8 +81,11 @@ export default function Form({ addTodoHandler, todosTitle }) {
       return;
     }
 
+    // SEND HTTP REQUEST
     await axios.post("/api/todos", formData);
-    addTodoHandler(formData);
+    // REFLECT CHANGES ON FRONTEND
+    updateTodos();
+    // CLEAR FORM AND FEEDBACK MESSAGES
     setFormData(initialFormData);
     clearFormValidation();
     setSuccess("Successfully added todo!");

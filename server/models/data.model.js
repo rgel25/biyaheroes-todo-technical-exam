@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const TodoSchema = new Schema({
-  // ○  todoReference:string - unique, non-editable
+  // ○ todoReference:string - unique, non-editable
   // ○ todoTitle:string - unique, editable
   // ○ todoDescription:string - editable
   // ○ todoDatetimestamp:number<YYYYMMDDHHmmss> - non-editable
