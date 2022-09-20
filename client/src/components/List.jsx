@@ -7,9 +7,9 @@ export default function List({ todos, updateTodos }) {
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete this todo?")) {
       // DELETE API ENDPOINT REQUEST
-      axios.delete(`/api/todos/${id}`);
+      await axios.delete(`/api/todos/${id}`);
       // DELETE TODO IN FRONT END
-      await updateTodos();
+      updateTodos();
     }
   };
 
