@@ -28,3 +28,8 @@ module.exports.destroy = async (req, res) => {
   await Todo.findByIdAndDelete(id);
   res.send("Okay!");
 };
+
+module.exports.deleteAll = async (req, res) => {
+  await Todo.deleteMany({});
+  res.send("Okay!");
+};

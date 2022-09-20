@@ -28,6 +28,16 @@ function App() {
     setLoading(false);
   };
 
+  // DELETE HANDLER FOR TODO DELTION,
+  const deleteAllHandler = () => {
+    if (window.confirm("Are you sure you want to delete ALL todos?")) {
+      // DELETE API ENDPOINT REQUEST
+      axios.delete(`/api/todos/`);
+      // DELETE TODO IN FRONT END
+      updateTodos();
+    }
+  };
+
   return (
     <div className="App">
       <div className="container my-5">
@@ -40,11 +50,23 @@ function App() {
             />
           </div>
           <div className="col-12 col-md-6">
-            <h2>Your Todo List</h2>
+            <div className="row">
+              <div className="col-8">
+                <h2>Your Todo List</h2>
+              </div>
+              <div className="col-4 text-end">
+                <button
+                  className="btn btn-secondary"
+                  onClick={deleteAllHandler}
+                >
+                  Clear all
+                </button>
+              </div>
+            </div>
             {loading ? (
               <div className="container w-100 text-center mt-5">
-                <div class="spinner-border text-primary" role="status">
-                  <span class="visually-hidden">Loading...</span>
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
             ) : (

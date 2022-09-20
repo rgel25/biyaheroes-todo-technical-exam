@@ -13,7 +13,10 @@ router.post("/", todos.create);
 // PUT Todos - route (/api/todos/:id/edit) - Edit a todo
 router.put("/:id/edit", todos.update);
 
-// DELEETE Todos - route (/api/todos/:id) - Delete a todo
+// DELETE Todos - route (/api/todos/:id) - Delete a todo
 router.delete("/:id", todos.destroy);
+
+// DELETE Todos - route (/api/todos/) - Delete ALL Todos
+router.delete("/", todos.deleteAll);
 
 module.exports = router;
