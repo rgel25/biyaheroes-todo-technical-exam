@@ -4,12 +4,12 @@ import axios from "axios";
 
 export default function List({ todos, updateTodos }) {
   // DELETE HANDLER FOR TODO DELTION,
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete this todo?")) {
       // DELETE API ENDPOINT REQUEST
       axios.delete(`/api/todos/${id}`);
       // DELETE TODO IN FRONT END
-      updateTodos();
+      await updateTodos();
     }
   };
 

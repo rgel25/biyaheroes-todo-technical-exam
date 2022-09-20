@@ -29,10 +29,10 @@ function App() {
   };
 
   // DELETE HANDLER FOR TODO DELTION,
-  const deleteAllHandler = () => {
+  const deleteAllHandler = async () => {
     if (window.confirm("Are you sure you want to delete ALL todos?")) {
       // DELETE API ENDPOINT REQUEST
-      axios.delete(`/api/todos/`);
+      await axios.delete(`/api/todos/`);
       // DELETE TODO IN FRONT END
       updateTodos();
     }
